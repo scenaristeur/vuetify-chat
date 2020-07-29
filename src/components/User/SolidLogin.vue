@@ -1,21 +1,20 @@
 <template>
-  <v-container>
-    SIGIN SOLID
 
 
     <div class="solid-login">
       <b-button variant="success" v-if="logged==false" @click="login">Login</b-button>
       <b-button variant="danger" v-else @click="logout">Logout</b-button>
-      <div class="brute-hide">
+    <!--  <div class="brute-hide">
         logged : {{ logged }}<br>
         webId : {{ webId }}<br>
         storage: {{ storage}}
         <hr>
-      </div>
+      </div>-->
 
     </div>
-
+<!--
     <hr>
+      <v-container>
     <v-layout row v-if="error">
       <v-flex xs12 sm6 offset-sm3>
         <app-alert @dismissed="onDismissed" :text="error.message"></app-alert>
@@ -60,7 +59,7 @@
         </v-card>
       </v-flex>
     </v-layout>
-  </v-container>
+  </v-container>-->
 </template>
 
 <script>
@@ -132,13 +131,16 @@ export default {
         this.logged = false
         this.webId = null
         console.log('The user is not logged in', this.logged, this.webId)
-        this.$store.commit('local/setWebId', this.webId)
-        this.$store.commit('local/setStorage', "")
+        this.$store.dispatch('signUserIn', {email: this.webId, password: this.password})
+
+      //  this.$store.commit('local/setWebId', this.webId)
+      //  this.$store.commit('local/setStorage', "")
       }
       else{
         this.logged = true
         this.webId = session.webId
         console.log(`The user is ${session.webId}`)
+          this.$store.dispatch('signUserIn', {email: `${session.webId}`, password: this.password})
       /*  this.$store.commit('local/setWebId', this.webId)
         let st  = await solid.data[session.webId].storage
         this.storage = `${st}`

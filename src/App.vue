@@ -28,6 +28,9 @@
         <router-link to="/chat/0" tag="span" style="cursor: pointer">Vuetify Chat</router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-toolbar-items>
+        <SolidLogin />
+      </v-toolbar-items>
       <v-toolbar-items v-for="item in menuItems" v-bind:key="item.route">
         <v-btn text :key="item.title" :to="item.route">
           <v-icon left>{{ item.icon }}</v-icon>
@@ -42,32 +45,36 @@
 </template>
 
 <script>
-  export default {
-    data () {
-      return {
-        drawerToggle: false
-      }
-    },
-    computed: {
-      menuItems () {
-        let items = [
-          { icon: 'mdi-face', title: 'Register', route: '/register' },
-          { icon: 'mdi-lock-open', title: 'Login', route: '/login' }
+import SolidLogin from '@/components/User/SolidLogin.vue'
+export default {
+  components: {
+    SolidLogin
+  },
+  data () {
+    return {
+      drawerToggle: false
+    }
+  },
+  computed: {
+    menuItems () {
+      let items = [
+        { icon: 'mdi-face', title: 'Register', route: '/register' },
+        { icon: 'mdi-lock-open', title: 'Login', route: '/login' }
+      ]
+      if (this.userIsAuthenticated) {
+        items = [
+          {icon: 'mdi-forum', title: 'Create a Chat', route: '/create'},
+          {icon: "mdi-chat", title: 'Chat List', route: '/discover'}
         ]
-        if (this.userIsAuthenticated) {
-          items = [
-            {icon: 'mdi-forum', title: 'Create a Chat', route: '/create'},
-            {icon: "mdi-chat", title: 'Chat List', route: '/discover'}
-          ]
-        }
-        return items
-      },
-      userIsAuthenticated () {
-        return this.$store.getters.user !== null && this.$store.getters.user !== undefined
-      },
-      onlineUsers () {
-        return this.$store.getters.onlineUsers
       }
+      return items
+    },
+    userIsAuthenticated () {
+      return this.$store.getters.user !== null && this.$store.getters.user !== undefined
+    },
+    onlineUsers () {
+      return this.$store.getters.onlineUsers
     }
   }
+}
 </script>

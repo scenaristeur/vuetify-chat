@@ -67,7 +67,15 @@ const AuthModule = {
     signUserIn ({commit}, payload) {
       commit('setLoading', true)
       commit('clearError')
-      firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
+      console.log("paylod: ",payload)
+      commit('setLoading', false)
+      const newUser = {
+        id: payload.email,
+        username: "test@email.com"
+      }
+      commit('setUser', newUser)
+
+    /*  firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
         .then(
           auth => {
             firebase.database().ref('users').child(auth.user.uid).once('value', function (data) {
@@ -85,7 +93,7 @@ const AuthModule = {
             commit('setLoading', false)
             commit('setError', error)
           }
-        )
+        )*/
     }
   },
   getters: {
