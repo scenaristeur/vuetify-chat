@@ -6,8 +6,10 @@ import Create from '@/components/Chat/Create'
 import ChatList from '@/components/Chat/ChatList'
 import Profile from '@/components/User/Profile'
 import Signup from '@/components/User/Signup'
-import Signin from '@/components/User/Signin'
+//import Signin from '@/components/User/Signin'
+import SolidLogin from '@/components/User/SolidLogin'
 import AuthGuard from './auth-guard'
+
 
 Vue.use(Router)
 
@@ -22,7 +24,7 @@ export default new Router({
     {
       path: '/login',
       name: 'Signin',
-      component: Signin
+      component: SolidLogin // Signin
     },
     {
       path: '/register',
